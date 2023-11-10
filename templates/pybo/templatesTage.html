@@ -1,0 +1,29 @@
+<!--장고에 사용하는 템플릿 태그는 3가지만 알면 된다-->
+
+<!--1. 분기
+{% if 조건문1 %}
+    <p>조건문1에 해당되는 경우</p>
+{% elif 조건문 2 %}
+    <p>조건문2에 해당되는 경우</p>
+{% else %}
+    <p>조건문1, 2에 모두 해당되지 않는 경우</p>
+{% endif %}
+-->
+<!--2. 반복
+{% for item in list %}
+    <p>순서: {{forloop.counter}}</p>
+    <p> {{item}}</p>
+{% endfor %}
+-->
+<!-- forloop 속성 설명 
+1. forloop.counter #루프내의 순서로 1부터 표시 
+2. forloop.counter0 #루프내의 순서로 0부터 표시 
+3. forloop.first #루프의 첫번째 순서인 경우 True
+4. forloop.last #루프의 마지막 순서인 경우 True-->
+
+<!--3. 객체 출력
+{{객체}} 
+{{question}}
+{{객체.속성}}
+{{question.id}}, {{question.subject}}
+-->

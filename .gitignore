@@ -1,0 +1,5 @@
+#.gitignore 깃으로 관리하지 않을 대상을 기술
+.idea
+db.sqlite3
+*.pyc
+__pychache__

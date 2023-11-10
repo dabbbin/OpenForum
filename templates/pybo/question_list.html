@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% load pybo_filter %} <!--템플릿 태그 함수 로드-->
+{% block content %}
+<div class="container my-3">
+    <div class="row my-3">
+        <!--질문등록하기 버튼 구현-->
+        <div class="col-6">
+            <a href="{% url 'pybo:question_create' %}" class="btn btn-primary">질문등록하기</a>
+        </div>
+        <!--검색어버튼 구현-->
+        <div class="col-6">
+            <div class="input-group">
+                <!--텍스트창에 입력된 값을 얻기 위해 id 속성값을 설정 -->
+                <input type="text" id="search_kw" class="form-control" value="{{kw|default_if_none:'' }}">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button"  id="btn_search">
+                        찾기 
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--테이블 표 생성-->
+    <table class="table">
+        <thead>
+        <tr class="text-center table-dark">
+            <th >번호</th>
+            <th style="width: 50%">제목</th>
+            <th>글쓴이</th>
+            <th>작성일시</th> 
+        </tr>
+    </thead>
+    <tbody>
+    {% if question_list %}
+    {% for question in question_list %}
+    <tr class="text-center">
+        <td>
+            <!--번호 = 전체 건수 - 시작인덱스 - 현재인덱스 +-->
+            {{question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1}} 
+        
+        </td> 
+        
+        <td class="text-start"> <!--for문의 현재 순서--> 
+            <a href="{% url 'pybo:detail' question.id %}">{{ question.subject}}</a>
+            <!--답변 개수 표시-->
+            {% if question.answer_set.count > 0 %}
+            <span class="text-danger small mx-2">{{question.answer_set.count }}</span>
+            {% endif %}
+        </td>
+        <!--글쓴이 추가-->
+        <td>{{question.author.username}}</td>
+        <td>{{question.create_date }}</td> 
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr> <!--테이블 항목 3개->4개로 증가-->
+            <td colspan="4">질문이없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    <!--페이징 처리 시작-->
+    <ul class="pagination justify-content-center">
+        
+        <!--처음 페이지-->
+        {% if question_list.start_index %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{question_list.1}}" href="javascript:void(0)">처음</a> 
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#"> 처음</a>
+        </li>
+        {% endif %}
+
+        <!--이전 페이지-->
+        {% if question_list.has_previous %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{question_list.previous_page_number}}"
+                href="javascript:void(0)">이전</a> 
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#"> 이전</a>
+        </li>
+        {% endif %}
+
+        <!--페이지 리스트-->
+        {% for page_number in question_list.paginator.page_range %}
+        <!--페이지리스트가 현재 페이지 기준으로 좌우 5개씩만 보이게 만든다-->
+        {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %}
+        {% if page_number == question_list.number %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" data-page="{{page_number}}" href='javascript:void(0)'>{{page_number}}</a>
+        </li>
+        
+        {%else%}
+        <li class="page-item">
+            <a class="page-link" data-page="{{page_number}}" href="javascript:void(0)">{{page_number}}</a>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        
+        <!--다음 페이지-->
+        {% if question_list.has_next %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{question_list.next_page_number}}" href="javascript:void(0)">다음</a> 
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <!--다음페이지가 없다면, 즉 -1이라면 링크 비활 처리-->
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#"> 다음</a>
+        </li>
+        {% endif %}
+
+        <!--마지막 페이지-->
+        {% if question_list.end_index %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{question_list.end_index}}" href="javascript:void(0)">마지막</a> 
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">마지막</a>
+        </li>
+        {% endif %}
+
+    </ul>
+    <!--페이징 처리 끝-->
+</div>
+<!--페이지와 키워드를 GET 으로 요청하는 searchForm 구현 --> 
+<form id = 'searchForm' method="get" action="{% url 'index' %}">
+    <!--kw, page 이전에 요청했던 값이 index 함수로부터 전달되고 
+        기억을 위해 value 값에 대입-->
+    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:''}}">
+    <input type="hidden" id="page" name="page" value="{{page}}">
+</form>
+{% endblock %}
+
+<!--page 와 kw 파라미터를 동시요청하는 검색 스크립트 작성-->
+{% block script %}
+<script type="text/javascript">
+// page-link 값 가진 링크를 클릭하면 data-page 속성값을 읽어 searchForm 의 page 필드에 설정해
+// searchForm 을 요청하도록 한다. 
+const page_elements = document.getElementsByClassName("page-link");
+Array.from(page_elements).forEach(function(element){
+    element.addEventListener('click', function(){
+        document.getElementById('page').value = this.dataset.page;
+        document.getElementById('searchForm').submit(); 
+    });
+});
+// 검색 버튼 클릭하면 검색어 텍스트창에 입력된 값을 searchForm 의 kw 필드에 설정하고 
+// searchForm 을 요청하도록 한다. 
+const btn_search = document.getElementById("btn_search");
+btn_search.addEventListener('click', function(){
+    document.getElementById('kw').value = document.getElementById('search_kw').value;
+    // 검색 버튼을 클릭할 경우 1페이지부터 조회한다. 
+    document.getElementById('page').value = 1; 
+    document.getElementById('searchForm').submit(); 
+}); 
+</script>
+{% endblock %}
