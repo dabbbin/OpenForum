@@ -1,2 +1,2 @@
-# -Django-OpenForum
+# [[Django]]OpenForum
 OpenForum
