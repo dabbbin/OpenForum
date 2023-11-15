@@ -24,4 +24,4 @@ def signup(request) :
 
 #page_not_found 함수 구현 
 def page_not_found(request, exception) : 
-     return render(request, 'common/404.html', {})  
+    return render(request, 'common/404.html', {})  
