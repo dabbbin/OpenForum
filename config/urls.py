@@ -19,6 +19,3 @@ urlpatterns = [
    
 ]
 
-#handler 사용시 사용자 정의 뷰 함수 출력  
-handler404 = 'common.views.page_not_found'
-
