@@ -5,7 +5,7 @@ from django.core.paginator import Paginator #paging
 #OR 조건으로 데이터를 조회하기 위해 Q함수 선언 
 from django.db.models import Q
 import logging
-logger = logging.getLogger('pybo')
+logger = logging.getLogger(__name__)
 
 
 
