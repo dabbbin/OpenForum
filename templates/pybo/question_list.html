@@ -3,11 +3,15 @@
 {% load pybo_filter %} <!--템플릿 태그 함수 로드-->
 {% block content %}
 <div class="container my-3">
+    <div style="color: red; background-color: yellow; ">
+        <strong>공지사항 : 클린하고 깨끗한 게시판 문화를 지향합니다 ~&^^&</strong>
+    </div>
     <div class="row my-3">
         <!--질문등록하기 버튼 구현-->
         <div class="col-6">
             <a href="{% url 'pybo:question_create' %}" class="btn btn-primary">글 작성</a>
         </div>
+       
         <!--검색어버튼 구현-->
         <div class="col-6">
             <div class="input-group">
