@@ -201,5 +201,9 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
+        'pybo' : {
+            'handlers':['condole', 'file'],
+            'level':'INFO', 
+        }
     }
 }
