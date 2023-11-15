@@ -20,3 +20,8 @@ def signup(request) :
     else: #get - 회원가입 화면 띄움
             form = UserForm()
     return render(request, 'common/signup.html', {'form':form})
+
+
+#page_not_found 함수 구현 
+def page_not_found(request, exception) : 
+     return render(request, 'common/404.html', {})  
