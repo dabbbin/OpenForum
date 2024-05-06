@@ -1,43 +1,26 @@
-### HI, Python world! 
-***
+# OpenForum
 
-<pre><code>
-public class helloWorld {
-  public static void main(String[] args) {
-    System.out.println("Hello, Django!");
-  }
-}
-</code></pre>
+## 🕸️ 프로젝트 소개
+누구나 자유롭게 글을 등록할 수 있는 게시판
+<br>
 
-***
+## 🕰️ 개발 기간
+* 23.10.16 - 23.12.16
 
-### To Do List 
-- [ ] 기존 서비스 복사하기
-- [ ] 깃허브 생성 
-- [ ] 실습
-  - [ ] 1. 마크다운 
-  - [x] 2. 테이블 생성 
+### 🧑‍🤝‍🧑 멤버구성
+- 개인 : 김다빈  
+ 
 
-# Django-Project-OpenForum
---- 
-장고 익명_커뮤니티 사이트 
-- 누구나 자유롭게 글을 등록할 수 있는 게시판
+### ⚙️ 개발 환경
+-  ``` Django ```
+- ``` Nginx, uwsgi, AWS ```
+- **IDE** : vsCode
 
-## 🖥️ 프로젝트 소개 
----
-익명 커뮤니티 사이트입니다. 
+### 📂폴더구조
 
-### 🕰️ 개발 기간
---- 
-- 23.10.16 - 23.12.16
+``` 
 
-### 🧑‍🤝‍🧑멤버구성
-
-### ⚙️개발 환경 
-- pyhton
-- IDE : vsCode
-- Framwork : Django(2.X)
-- ORM
+```    
 
 ### [ OpenForum 구현 과정 ]
 ![openforum](https://github.com/bboooyaho/OpenForum/assets/60571718/ec499baa-55d9-42c3-aed5-44781a9a2f35)
@@ -46,11 +29,26 @@ public class helloWorld {
 ![openforumfolder](https://github.com/bboooyaho/OpenForum/assets/60571718/ca652989-a0b4-4717-a5d1-84c08611f648)
 
 
-## 📌주요 기능  
---- 
-**로그인 - 상세보기 - WIKI 이동**
-- DB값 검증 
+## 📌 주요 기능
+#### - 회원가입 및 로그인 
+
+#### - 게시글 작성 및 댓글 작성 
+
+#### - 검색 
 
 
+#### 부속기능 및 역할 
+- 페이지네이션 기능  
+- URL 매핑과 VIEW 함수 정의에 대한 이해 
+- 템플릿 종속 이해
+- API 를 통한 데이터 전송 및 응답
+- 실제 배포를 통한 서버에 대한 이해도 향상 
+- 백그라운드 설정에 대한 이해
 
-
+- DB 모델과 구조를 설계
+- 데이터 흐름 설계
+- AWS EC2 생성 
+- 고정 IP 주소 설정 
+- 마크다운 구현 
+- 운영 서버 및 웹서버 활성화
+- 백그라운드 활성화 
